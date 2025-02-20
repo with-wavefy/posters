@@ -53,7 +53,7 @@
 		opacity: 0;
 		transition: 1s ease;
 		transition-property: opacity;
-		@media (min-width: 1200px) {
+		@media (min-width: 1470px) {
 			width: 40vw;
 		}
 	}
@@ -79,5 +79,7 @@
 		grid-area: caption;
 		text-align: center;
 		margin-top: auto;
+		font-size: calc(var(--proxyWidth) * 0.0341);
+		font-weight: 300;
 	}
 </style>
