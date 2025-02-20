@@ -8,7 +8,17 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		files: {
+			routes: 'src/app/routes',
+			appTemplate: 'src/app/app.html'
+		},
+		alias: {
+			'@shared': 'src/shared/*',
+			'@widgets': 'src/widgets/*',
+			'@pages': 'src/pages/*',
+			'@entities': 'src/entities/*'
+		}
 	}
 };
 
