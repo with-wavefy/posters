@@ -128,6 +128,6 @@
 		font-size: calc(var(--proxyWidth) * 0.0341);
 		font-weight: 300;
 		position: relative;
-		z-index: 1;
+		z-index: 3;
 	}
 </style>
