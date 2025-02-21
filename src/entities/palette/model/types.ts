@@ -1,10 +1,10 @@
-import type { IPalette, PaletteDifferentColor } from '../types';
+import type { IPalette, PaletteColor } from '../types';
 import type { createPaletteStore } from './store';
 
 export type PaletteStoreInitialValue = IPalette;
 export interface IPaletteStoreOptions {
-	forcePrimary?: () => string | null;
-	forceDifferent?: () => PaletteDifferentColor | null;
+	forcePrimary?: () => PaletteColor | null;
+	forceDifferent?: () => PaletteColor | null;
 	mono?: {
 		background: string;
 		color: string;

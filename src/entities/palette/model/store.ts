@@ -4,39 +4,45 @@ import { getContext, setContext } from 'svelte';
 import getDifferentHexColor from '@shared/lib/color/getDifferentHexColor';
 import getHexColorByDate from '@shared/lib/color/getHexColorByDate';
 import type { IPaletteStoreOptions, PaletteStore, PaletteStoreInitialValue } from './types';
-import { paletteDays } from '../config/days';
+import createPaletteDays from '../lib/createPaletteDays';
 
 const colorByDate = getHexColorByDate();
 
 const initialValue: PaletteStoreInitialValue = {
 	primary: colorByDate.string,
-	different: [getDifferentHexColor(colorByDate.string).string]
+	different: getDifferentHexColor(colorByDate.string).string
 };
 
-const initialOptions: IPaletteStoreOptions = {
-	forceDifferent() {
-		if (paletteDays.differentWhite) {
-			return ['#FFFFFF'];
-		} else if (paletteDays.differentBlack) {
-			return ['#000000'];
-		}
-		return null;
-	},
-	forcePrimary() {
-		if (paletteDays.primaryWhite) {
-			return '#FFFFFF';
-		} else if (paletteDays.primaryBlack) {
-			return '#000000';
-		}
-		return null;
-	},
-	mono: (() => {
-		if (paletteDays.isMonoBlack) return { background: '#000000', color: '#FFFFFF' };
-		if (paletteDays.isMonoWhite) return { background: '#FFFFFF', color: '#000000' };
-	})(),
-	glow: paletteDays.isGlow,
-	noise: paletteDays.isNoise
+const createInitialOptions = (date = new Date()): IPaletteStoreOptions => {
+	const paletteDays = createPaletteDays(date);
+	console.log(paletteDays);
+	return {
+		forceDifferent() {
+			if (paletteDays.differentWhite) {
+				return '#FDFDFD';
+			} else if (paletteDays.differentBlack) {
+				return '#141414';
+			}
+			return null;
+		},
+		forcePrimary() {
+			if (paletteDays.primaryWhite) {
+				return '#FDFDFD';
+			} else if (paletteDays.primaryBlack) {
+				return '#141414';
+			}
+			return null;
+		},
+		mono: (() => {
+			if (paletteDays.isMonoBlack) return { background: '#141414', color: '#FDFDFD' };
+			if (paletteDays.isMonoWhite) return { background: '#FDFDFD', color: '#141414' };
+		})(),
+		glow: paletteDays.isGlow,
+		noise: paletteDays.isNoise
+	};
 };
+
+const initialOptions = createInitialOptions();
 
 const contextName = 'palette-context';
 
@@ -50,8 +56,9 @@ export const createPaletteStore = (value = initialValue, options?: IPaletteStore
 	const setPrimary = (primary: PaletteColor) => {
 		update((data) => {
 			const different = getDifferentHexColor(primary);
-			const forcedPrimary = get(optionsStore).forcePrimary?.() ?? primary;
-			const forcedDifferent = get(optionsStore).forceDifferent?.() ?? [different.string];
+			const options = get(optionsStore);
+			const forcedPrimary = options.forcePrimary?.() ?? primary;
+			const forcedDifferent = options.forceDifferent?.() ?? different.string;
 			return {
 				...data,
 				different: forcedDifferent,
@@ -86,11 +93,17 @@ export const createPaletteStore = (value = initialValue, options?: IPaletteStore
 		optionsStore.update((data) => ({ ...data, glow }));
 	};
 
+	const updateDate = (date: Date) => {
+		setOptions(createInitialOptions(date));
+		setPrimaryByDate(date);
+	};
+
 	return {
 		setPrimary,
 		setPrimaryByDate,
 		setNoise,
 		setGlow,
+		updateDate,
 		subscribe,
 		options: {
 			subscribe: optionsStore.subscribe,

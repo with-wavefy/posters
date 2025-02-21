@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { usePalette } from '@entities/palette';
 	import { Logo } from '@shared/ui/Logo';
+	import type { IconColor } from '@shared/ui/Logo/types';
 	import { Noise } from '@shared/ui/Noise';
 	import { onMount } from 'svelte';
 	let containerProxyWidth = $state(587);
@@ -14,25 +15,34 @@
 	$effect(() => {
 		const date = new Date();
 		date.setDate(new Date().getDate() + value);
-		palette.setPrimaryByDate(date);
+		palette.updateDate(date);
 	});
+	const color = $derived($options.mono ? $options.mono.color : $palette.different);
+	const backgroundColor = $derived($options.mono ? $options.mono.background : $palette.primary);
+	const logoColor: IconColor = $derived(
+		$options.mono ? [$palette.primary, $palette.different] : [$palette.different]
+	);
 </script>
 
 <section
-	class={loaded ? 'loaded' : null}
-	style="--color: {$palette.different[0]}; --backgroundColor: {$palette.primary}"
+	class:loaded
+	class:hoise={$options.noise}
+	style:--color={color}
+	style:--backgroundColor={backgroundColor}
 >
 	<input type="range" min="0" max="365" step="1" bind:value />
-	<div class="noise">
-		<Noise />
-	</div>
+	{#if $options.noise}
+		<div class="noise">
+			<Noise />
+		</div>
+	{/if}
 	<div
 		class="container"
-		style="--proxyWidth: {containerProxyWidth}px"
+		style:--proxyWidth="{containerProxyWidth}px"
 		bind:clientWidth={containerProxyWidth}
 	>
 		<div class="main">
-			<Logo className="logo" glow={$options.glow} iconProps={{ color: $palette.different }} />
+			<Logo className="logo" glow={$options.glow} iconProps={{ colors: logoColor }} />
 			<h1 class="title">Wavefy</h1>
 		</div>
 		<h3 class="caption">Coming Soon</h3>
@@ -55,6 +65,11 @@
 		:global(&.loaded) {
 			.container {
 				opacity: 1;
+			}
+		}
+		:global(&.hoise) {
+			.main {
+				z-index: auto;
 			}
 		}
 	}

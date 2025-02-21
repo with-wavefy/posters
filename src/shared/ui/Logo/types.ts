@@ -2,7 +2,7 @@ export type IconColor = [string, string?];
 
 export interface IIconProps {
 	className?: string;
-	color?: IconColor;
+	colors?: IconColor;
 	width?: string;
 }
 

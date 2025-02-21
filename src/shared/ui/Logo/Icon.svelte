@@ -10,7 +10,7 @@
 <script lang="ts">
 	import type { IIconProps } from './types';
 
-	const { color = [defaultColor], width = '408px', className }: IIconProps = $props();
+	const { colors = [defaultColor], width = '408px', className }: IIconProps = $props();
 </script>
 
 <svg
@@ -47,8 +47,9 @@
 				y2="162.853"
 				gradientUnits="userSpaceOnUse"
 			>
-				<stop stop-color={color[0] ?? defaultColor} />
-				<stop offset="1" stop-color={color[1] ?? color[0] ?? defaultColor} />
+				{#each colors as color, index (color)}
+					<stop stop-color={color} offset={index} />
+				{/each}
 			</linearGradient>
 		{/each}
 	</defs>
