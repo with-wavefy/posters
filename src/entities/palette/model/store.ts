@@ -1,7 +1,7 @@
 import { get, writable } from 'svelte/store';
 import type { PaletteColor } from '../types';
 import { getContext, setContext } from 'svelte';
-import getDifferentHexColor from '@shared/lib/color/getDifferentHexColor';
+import getDifferentHexColor from '@shared/lib/color/schemas/getDifferentHexColor';
 import getHexColorByDate from '@shared/lib/color/getHexColorByDate';
 import type { IPaletteStoreOptions, PaletteStore, PaletteStoreInitialValue } from './types';
 import createPaletteDays from '../lib/createPaletteDays';
