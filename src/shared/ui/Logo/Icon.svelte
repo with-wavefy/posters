@@ -38,7 +38,7 @@
 		fill={createUrlToGradient(ids[3])}
 	/>
 	<defs>
-		{#each ids as id}
+		{#each ids as id (id)}
 			<linearGradient
 				id={createGradientId(id)}
 				x1="241.224"

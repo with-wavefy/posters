@@ -8,4 +8,6 @@ export interface IIconProps {
 
 export interface ILogoProps {
 	className?: string;
+	iconProps?: IIconProps;
+	glow?: boolean;
 }

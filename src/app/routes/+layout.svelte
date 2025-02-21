@@ -1,13 +1,20 @@
 <script lang="ts">
 	import type { LayoutProps } from './$types';
 	import '../styles/index.pcss';
+	import Providers from '../providers/providers.svelte';
 
 	let { children }: LayoutProps = $props();
 </script>
 
-<main>
-	{@render children()}
-</main>
+<svelte:head>
+	<title>Wavefy | Posters</title>
+</svelte:head>
+
+<Providers>
+	<main>
+		{@render children()}
+	</main>
+</Providers>
 
 <style lang="postcss">
 	main {
