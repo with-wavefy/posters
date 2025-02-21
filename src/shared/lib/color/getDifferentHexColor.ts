@@ -1,4 +1,4 @@
-import hexToRgb from './hexToRgb';
+import hexToRgb from './adapters/hexToRgb';
 
 export default (hex: string) => {
 	const convertedToRGB = hexToRgb(hex);

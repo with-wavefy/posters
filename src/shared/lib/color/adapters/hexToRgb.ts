@@ -1,4 +1,4 @@
-import parseHex from './parseHex';
+import parseHex from '../parseHex';
 
 export default (hex: string) => {
 	const parsed = parseHex(hex);

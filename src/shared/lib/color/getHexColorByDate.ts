@@ -1,5 +1,5 @@
 import getHslColorByDate from './getHslColorByDate';
-import hslToHex from './hslToHex';
+import hslToHex from './adapters/hslToHex';
 
 export default (date = new Date(), s?: number, l?: number) => {
 	const { values } = getHslColorByDate(date, s, l);

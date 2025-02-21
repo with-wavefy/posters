@@ -1,6 +1,6 @@
-import hexToRgb from './hexToRgb';
-import hslToHex from './hslToHex';
-import rgbToHsl from './rgbToHsl';
+import hexToRgb from './adapters/hexToRgb';
+import hslToHex from './adapters/hslToHex';
+import rgbToHsl from './adapters/rgbToHsl';
 
 export default (hex: string) => {
 	const { r, g, b } = hexToRgb(hex);
