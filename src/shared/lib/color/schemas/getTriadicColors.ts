@@ -9,7 +9,7 @@ export default (hex: string) => {
 	const hue2 = (h + 240) % 360; // Второй триадный цвет
 
 	return {
-		first: hslToHex(hue1, 85, 55),
-		second: hslToHex(hue2, 85, 55)
+		first: hslToHex(hue1, 90, 50),
+		second: hslToHex(hue2, 90, 50)
 	};
 };

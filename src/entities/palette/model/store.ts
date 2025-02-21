@@ -5,12 +5,14 @@ import getDifferentHexColor from '@shared/lib/color/schemas/getDifferentHexColor
 import getHexColorByDate from '@shared/lib/color/getHexColorByDate';
 import type { IPaletteStoreOptions, PaletteStore, PaletteStoreInitialValue } from './types';
 import createPaletteDays from '../lib/createPaletteDays';
+import createTriadic from '../lib/createTriadic';
 
 const colorByDate = getHexColorByDate();
 
 const initialValue: PaletteStoreInitialValue = {
 	primary: colorByDate.string,
-	different: getDifferentHexColor(colorByDate.string).string
+	different: getDifferentHexColor(colorByDate.string).string,
+	triadic: createTriadic(colorByDate.string)
 };
 
 const createInitialOptions = (date = new Date()): IPaletteStoreOptions => {
@@ -62,7 +64,8 @@ export const createPaletteStore = (value = initialValue, options?: IPaletteStore
 			return {
 				...data,
 				different: forcedDifferent,
-				primary: forcedPrimary
+				primary: forcedPrimary,
+				triadic: createTriadic(colorByDate.string)
 			};
 		});
 	};

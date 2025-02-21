@@ -20,7 +20,7 @@
 	const color = $derived($options.mono ? $options.mono.color : $palette.different);
 	const backgroundColor = $derived($options.mono ? $options.mono.background : $palette.primary);
 	const logoColor: IconColor = $derived(
-		$options.mono ? [$palette.primary, $palette.different] : [$palette.different]
+		$options.mono ? [$palette.primary, $palette.triadic.second] : [$palette.different]
 	);
 </script>
 
