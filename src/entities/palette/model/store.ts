@@ -3,9 +3,16 @@ import type { PaletteColor } from '../types';
 import { getContext, setContext } from 'svelte';
 import getDifferentHexColor from '@shared/lib/color/schemas/getDifferentHexColor';
 import getHexColorByDate from '@shared/lib/color/getHexColorByDate';
-import type { IPaletteStoreOptions, PaletteStore, PaletteStoreInitialValue } from './types';
+import type {
+	IPaletteStoreOptions,
+	PaletteStore,
+	PaletteStoreGlow,
+	PaletteStoreInitialValue,
+	PaletteStoreNoise
+} from './types';
 import createPaletteDays from '../lib/createPaletteDays';
 import createTriadic from '../lib/createTriadic';
+import { PALETTE_CONFIG } from '../config';
 
 const colorByDate = getHexColorByDate();
 
@@ -39,8 +46,8 @@ const createInitialOptions = (date = new Date()): IPaletteStoreOptions => {
 			if (paletteDays.isMonoBlack) return { background: '#141414', color: '#FDFDFD' };
 			if (paletteDays.isMonoWhite) return { background: '#FDFDFD', color: '#141414' };
 		})(),
-		glow: paletteDays.isGlow,
-		noise: paletteDays.isNoise
+		glow: paletteDays.isGlow ? PALETTE_CONFIG.GLOW.DEFAULT : 0,
+		noise: paletteDays.isNoise ? PALETTE_CONFIG.NOISE.DEFAULT : 0
 	};
 };
 
@@ -88,11 +95,11 @@ export const createPaletteStore = (value = initialValue, options?: IPaletteStore
 		updateAfterChangeOptions();
 	};
 
-	const setNoise = (noise: boolean) => {
+	const setNoise = (noise: PaletteStoreNoise) => {
 		optionsStore.update((data) => ({ ...data, noise }));
 	};
 
-	const setGlow = (glow: boolean) => {
+	const setGlow = (glow: PaletteStoreGlow) => {
 		optionsStore.update((data) => ({ ...data, glow }));
 	};
 

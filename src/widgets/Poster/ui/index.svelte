@@ -4,6 +4,7 @@
 	import type { IconColor } from '@shared/ui/Logo/types';
 	import { Noise } from '@shared/ui/Noise';
 	import { onMount } from 'svelte';
+	import { Controls } from './Controls';
 	let containerProxyWidth = $state(587);
 	let loaded = $state(false);
 
@@ -42,11 +43,12 @@
 		bind:clientWidth={containerProxyWidth}
 	>
 		<div class="main">
-			<Logo className="logo" glow={$options.glow} iconProps={{ colors: logoColor }} />
+			<Logo className="logo" glow={Boolean($options.glow)} iconProps={{ colors: logoColor }} />
 			<h1 class="title">Wavefy</h1>
 		</div>
 		<h3 class="caption">Coming Soon</h3>
 	</div>
+	<Controls />
 </section>
 
 <style lang="postcss">

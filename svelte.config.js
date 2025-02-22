@@ -17,7 +17,8 @@ const config = {
 			'@shared': 'src/shared/*',
 			'@widgets': 'src/widgets/*',
 			'@pages': 'src/pages/*',
-			'@entities': 'src/entities/*'
+			'@entities': 'src/entities/*',
+			'@features': 'src/features/*'
 		}
 	}
 };
