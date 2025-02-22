@@ -1,10 +1,16 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 
-export interface IBaseButtonProps extends HTMLAttributes<HTMLButtonElement> {
+export interface IBaseButtonColor {
+	primary?: string;
+	secondary?: string;
+}
+
+export interface IBaseButtonProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'color'> {
 	className?: string;
 	children: Snippet;
 	square?: boolean;
+	color?: IBaseButtonColor;
 	type?: 'primary' | 'default' | 'text';
 }
 

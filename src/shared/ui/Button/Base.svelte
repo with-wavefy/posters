@@ -1,10 +1,17 @@
 <script lang="ts">
 	import type { IBaseButtonProps } from './types';
-	let { children, className, square, type, ...restProps }: IBaseButtonProps = $props();
-	console.log({ type, className });
+	let { children, className, square, type, color, ...restProps }: IBaseButtonProps = $props();
 </script>
 
-<button class="{className} {type}" class:square {...restProps}>{@render children()}</button>
+<button
+	class="{className} {type}"
+	class:square
+	style:--primary={color?.primary}
+	style:--secondary={color?.secondary}
+	{...restProps}
+>
+	{@render children()}
+</button>
 
 <style lang="postcss">
 	button {
@@ -60,6 +67,9 @@
 				overflow: hidden;
 				width: 100%;
 				height: 100%;
+			}
+			.icon {
+				width: 100%;
 			}
 		}
 	}

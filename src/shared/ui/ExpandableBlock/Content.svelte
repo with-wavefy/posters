@@ -29,11 +29,6 @@
 		:global(& > *) {
 			flex: none;
 		}
-		:global(.close) {
-			position: absolute;
-			top: 0px;
-			right: 0px;
-		}
 	}
 	.main {
 		padding: 0 16px;

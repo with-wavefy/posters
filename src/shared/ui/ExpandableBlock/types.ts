@@ -10,5 +10,6 @@ export interface IExpandableBlockContentProps {
 export interface IExpandableBlockProps {
 	className?: string;
 	children: Snippet;
+	icon?: Snippet;
 	expanded?: boolean;
 }

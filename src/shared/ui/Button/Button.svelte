@@ -4,4 +4,6 @@
 	let { children, ...restProps }: IButtonProps = $props();
 </script>
 
-<Base {...restProps}>{@render children()}</Base>
+<Base {...restProps}>
+	{@render children()}
+</Base>

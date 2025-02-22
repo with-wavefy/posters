@@ -3,14 +3,14 @@
 	import Content from './Content.svelte';
 	import type { IExpandableBlockProps } from './types';
 	import CloseIcon from '~icons/mdi/window-close';
+	import OpenIcon from '~icons/mdi/arrow-expand-all';
+	import { fade } from 'svelte/transition';
 
-	let { expanded = $bindable(false), className, children }: IExpandableBlockProps = $props();
+	let { expanded = $bindable(false), className, children, icon }: IExpandableBlockProps = $props();
 	let contentWidth = $state(0);
 	let contentHeight = $state(0);
 
 	const toggle = () => (expanded = !expanded);
-
-	const handleToggleClick = () => toggle();
 </script>
 
 <div
@@ -19,8 +19,28 @@
 	style:--expandedWidth="{contentWidth}px"
 	style:--expandedHeight="{contentHeight}px"
 >
-	<div class="buttons">
-		<Button className="toggle" type="text" onclick={handleToggleClick} square><CloseIcon /></Button>
+	<div class="button-wrapper">
+		<Button type="text" onclick={toggle} square>
+			<div class="button-icons">
+				{#key expanded}
+					<div class="button-icon" transition:fade={{ duration: 0.3 }}>
+						{#if expanded}
+							<div class="button-icon">
+								<CloseIcon />
+							</div>
+						{:else if icon}
+							<div class="button-icon" style:color="#fff">
+								{@render icon()}
+							</div>
+						{:else}
+							<div class="button-icon" style:color="#fff">
+								<OpenIcon />
+							</div>
+						{/if}
+					</div>
+				{/key}
+			</div>
+		</Button>
 	</div>
 
 	<Content className="content" bind:clientHeight={contentHeight} bind:clientWidth={contentWidth}>
@@ -58,14 +78,26 @@
 			transition-property: opacity;
 		}
 	}
-	.buttons {
+	.button-wrapper {
 		position: absolute;
 		z-index: 2;
-		top: 0;
-		right: 0;
+		top: -1px;
+		right: -1px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+	.button-icons {
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+	.button-icon {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 	}
 	.open {
 		position: absolute;

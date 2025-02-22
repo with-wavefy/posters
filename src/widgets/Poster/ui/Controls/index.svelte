@@ -1,14 +1,19 @@
 <script>
 	import { ToggleNoiseButton } from '@features/toggleNoise';
 	import { ExpandableBlock } from '@shared/ui/ExpandableBlock';
+	import ExpandableIcon from '~icons/mdi/paint-outline';
 </script>
+
+{#snippet icon()}
+	<ExpandableIcon />
+{/snippet}
 
 <ul>
 	<li>
 		<ToggleNoiseButton />
 	</li>
 	<li>
-		<ExpandableBlock>
+		<ExpandableBlock {icon}>
 			<h2>test</h2>
 			<h4>test</h4>
 		</ExpandableBlock>
