@@ -49,7 +49,10 @@
 				gradientUnits="userSpaceOnUse"
 			>
 				{#each colors as color, index (color)}
-					<stop stop-color={color} offset="{getPercentage(index, colors.length - 1)}%" />
+					<stop
+						stop-color={color}
+						offset="{colors.length > 1 ? getPercentage(index, colors.length - 1) * 100 : 0}%"
+					/>
 				{/each}
 			</linearGradient>
 		{/each}

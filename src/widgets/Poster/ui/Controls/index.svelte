@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
+	import { ChangePosterNoiseRange } from '@features/changePosterNoise';
 	import { ExpandableBlock } from '@shared/ui/ExpandableBlock';
-	import { Range } from '@shared/ui/Range';
 	import ExpandableIcon from '~icons/mdi/paint-outline';
-	let value = 0;
+	import type { IPosterControlsProps } from '../../types';
+
+	let { posterStore }: IPosterControlsProps = $props();
 </script>
 
 {#snippet icon()}
@@ -13,9 +15,8 @@
 	<li>
 		<ExpandableBlock expanded {icon}>
 			<div class="content">
-				<h2>test</h2>
-				<h4>test</h4>
-				<Range min={0} max={10} step={1} bind:value />
+				<b>Noise</b>
+				<ChangePosterNoiseRange {posterStore} />
 			</div>
 		</ExpandableBlock>
 	</li>

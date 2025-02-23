@@ -20,6 +20,7 @@
 
 	$effect(() => {
 		const primaryIsDark = isDarkColor($backgroundColor);
+		console.log(primaryIsDark);
 		if (primaryIsDark) {
 			themeStore.setLight();
 		} else {
@@ -36,7 +37,7 @@
 		<div class="poster">
 			<Poster store={posterStore} />
 		</div>
-		<div class="controls"><Controls /></div>
+		<div class="controls"><Controls {posterStore} /></div>
 	</section>
 </ThemeProvider>
 

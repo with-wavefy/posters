@@ -1,5 +1,6 @@
-export interface IRangeProps {
-	className?: number;
+import type { BaseUiProps } from '@shared/types/ui';
+
+export interface IRangeProps extends BaseUiProps {
 	min: number;
 	max: number;
 	step: number;

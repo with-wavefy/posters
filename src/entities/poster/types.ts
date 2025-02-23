@@ -16,8 +16,8 @@ export interface IPosterStoreInitialValue {
 		background: string;
 		color: string;
 	};
-	glow?: number;
-	noise?: number;
+	glow: number;
+	noise: number;
 }
 
 export interface IPosterStoreOptions {

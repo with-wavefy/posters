@@ -3,6 +3,7 @@
 	import { Noise } from '@shared/ui/Noise';
 	import { onMount } from 'svelte';
 	import type { IPosterProps } from '../types';
+	import getPercentage from '@shared/lib/getPercentage';
 
 	let { store }: IPosterProps = $props();
 
@@ -24,7 +25,7 @@
 >
 	{#if $poster.noise}
 		<div class="noise">
-			<Noise />
+			<Noise amount={getPercentage($poster.noise, 100)} />
 		</div>
 	{/if}
 	<div

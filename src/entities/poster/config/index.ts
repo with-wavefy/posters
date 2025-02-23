@@ -1,8 +1,8 @@
 export const POSTER_CONFIG = {
 	NOISE: {
-		DEFAULT: 0.5
+		DEFAULT: 100
 	},
 	GLOW: {
-		DEFAULT: 0.5
+		DEFAULT: 100
 	}
 } as const;

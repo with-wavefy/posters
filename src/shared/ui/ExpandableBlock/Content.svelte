@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { createThemeStore, ThemeProvider } from '@shared/modules/theme';
 	import type { IExpandableBlockContentProps } from './types';
 
 	let {
@@ -7,12 +8,16 @@
 		className,
 		children
 	}: IExpandableBlockContentProps = $props();
+
+	const themeStore = createThemeStore({ value: 'dark' });
 </script>
 
 <div class="content {className}" bind:clientHeight bind:clientWidth>
-	<div class="main">
-		{@render children()}
-	</div>
+	<ThemeProvider store={themeStore}>
+		<div class="main">
+			{@render children()}
+		</div>
+	</ThemeProvider>
 </div>
 
 <style lang="postcss">

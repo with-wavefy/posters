@@ -24,7 +24,7 @@ export const createPosterStore = ({
 	palette: paletteStore,
 	initialValue = createdInitialValue
 }: IPosterStoreOptions) => {
-	const { subscribe, update } = writable(initialValue);
+	const { subscribe, update, set } = writable(initialValue);
 	const palette = paletteStore;
 
 	const color = derived([{ subscribe }, palette], ([$store, $palette]) =>
@@ -56,7 +56,8 @@ export const createPosterStore = ({
 		setPrimaryColorByDate,
 		updateByDate,
 		setPrimary: palette.setPrimary,
-
+		set,
+		update,
 		subscribe
 	};
 };
