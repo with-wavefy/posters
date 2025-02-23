@@ -1,4 +1,4 @@
-export const PALETTE_CONFIG = {
+export const POSTER_CONFIG = {
 	NOISE: {
 		DEFAULT: 0.5
 	},

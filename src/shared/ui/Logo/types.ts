@@ -1,8 +1,8 @@
-export type IconColor = [string, string?];
+export type LogoIconColor = string[];
 
 export interface IIconProps {
 	className?: string;
-	colors?: IconColor;
+	colors?: LogoIconColor;
 	width?: string;
 }
 

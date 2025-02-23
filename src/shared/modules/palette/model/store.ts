@@ -3,60 +3,26 @@ import type { PaletteColor } from '../types';
 import { getContext, setContext } from 'svelte';
 import getDifferentHexColor from '@shared/lib/color/schemas/getDifferentHexColor';
 import getHexColorByDate from '@shared/lib/color/getHexColorByDate';
-import type {
-	IPaletteStoreOptions,
-	PaletteStore,
-	PaletteStoreGlow,
-	PaletteStoreInitialValue,
-	PaletteStoreNoise
-} from './types';
-import createPaletteDays from '../lib/createPaletteDays';
+import type { IPaletteStoreOptions, PaletteStore, PaletteStoreInitialValue } from './types';
 import createTriadic from '../lib/createTriadic';
-import { PALETTE_CONFIG } from '../config';
+import createAnalogous from '../lib/createAnalogous';
 
 const colorByDate = getHexColorByDate();
 
 const initialValue: PaletteStoreInitialValue = {
 	primary: colorByDate.string,
 	different: getDifferentHexColor(colorByDate.string).string,
-	triadic: createTriadic(colorByDate.string)
+	triadic: createTriadic(colorByDate.string),
+	analogous: createAnalogous(colorByDate.string)
 };
 
-const createInitialOptions = (date = new Date()): IPaletteStoreOptions => {
-	const paletteDays = createPaletteDays(date);
-	console.log(paletteDays);
-	return {
-		forceDifferent() {
-			if (paletteDays.differentWhite) {
-				return '#FDFDFD';
-			} else if (paletteDays.differentBlack) {
-				return '#141414';
-			}
-			return null;
-		},
-		forcePrimary() {
-			if (paletteDays.primaryWhite) {
-				return '#FDFDFD';
-			} else if (paletteDays.primaryBlack) {
-				return '#141414';
-			}
-			return null;
-		},
-		mono: (() => {
-			if (paletteDays.isMonoBlack) return { background: '#141414', color: '#FDFDFD' };
-			if (paletteDays.isMonoWhite) return { background: '#FDFDFD', color: '#141414' };
-		})(),
-		glow: paletteDays.isGlow ? PALETTE_CONFIG.GLOW.DEFAULT : 0,
-		noise: paletteDays.isNoise ? PALETTE_CONFIG.NOISE.DEFAULT : 0
-	};
-};
-
-const initialOptions = createInitialOptions();
+const initialOptions: IPaletteStoreOptions = {};
 
 const contextName = 'palette-context';
 
 export const createPaletteStore = (value = initialValue, options?: IPaletteStoreOptions) => {
 	const { update, subscribe } = writable(value);
+
 	const optionsStore = writable({
 		...initialOptions,
 		...options
@@ -68,18 +34,16 @@ export const createPaletteStore = (value = initialValue, options?: IPaletteStore
 			const options = get(optionsStore);
 			const forcedPrimary = options.forcePrimary?.() ?? primary;
 			const forcedDifferent = options.forceDifferent?.() ?? different.string;
+			const triadic = createTriadic(forcedPrimary);
+			const analogous = createAnalogous(forcedPrimary);
 			return {
 				...data,
 				different: forcedDifferent,
 				primary: forcedPrimary,
-				triadic: createTriadic(colorByDate.string)
+				triadic,
+				analogous
 			};
 		});
-	};
-
-	const setPrimaryByDate = (date: Date) => {
-		const colorByDate = getHexColorByDate(date);
-		setPrimary(colorByDate.string);
 	};
 
 	const updateAfterChangeOptions = () => {
@@ -95,25 +59,8 @@ export const createPaletteStore = (value = initialValue, options?: IPaletteStore
 		updateAfterChangeOptions();
 	};
 
-	const setNoise = (noise: PaletteStoreNoise) => {
-		optionsStore.update((data) => ({ ...data, noise }));
-	};
-
-	const setGlow = (glow: PaletteStoreGlow) => {
-		optionsStore.update((data) => ({ ...data, glow }));
-	};
-
-	const updateDate = (date: Date) => {
-		setOptions(createInitialOptions(date));
-		setPrimaryByDate(date);
-	};
-
 	return {
 		setPrimary,
-		setPrimaryByDate,
-		setNoise,
-		setGlow,
-		updateDate,
 		subscribe,
 		options: {
 			subscribe: optionsStore.subscribe,

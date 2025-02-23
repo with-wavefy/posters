@@ -1,4 +1,4 @@
-import { Snippet } from 'svelte';
+import type { Snippet } from 'svelte';
 
 export interface IExpandableBlockContentProps {
 	clientHeight: number;

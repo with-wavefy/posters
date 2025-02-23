@@ -1,15 +1,13 @@
 import hexToRgb from '../adapters/hexToRgb';
 import hslToHex from '../adapters/hslToHex';
 import rgbToHsl from '../adapters/rgbToHsl';
+import type { ColorSchema2 } from './types';
 
-export default (hex: string) => {
-	const { r, g, b } = hexToRgb(hex);
-	const { h } = rgbToHsl(r, g, b);
-	const hue1 = (h + 120) % 360; // Первый триадный цвет
-	const hue2 = (h + 240) % 360; // Второй триадный цвет
+export default (hex: string): ColorSchema2<ReturnType<typeof hslToHex>> => {
+	const {
+		values: { r, g, b }
+	} = hexToRgb(hex);
+	const { h, s, l } = rgbToHsl(r, g, b);
 
-	return {
-		first: hslToHex(hue1, 90, 50),
-		second: hslToHex(hue2, 90, 50)
-	};
+	return [hslToHex((h + 120) % 360, s, l), hslToHex((h + 240) % 360, s, l)];
 };

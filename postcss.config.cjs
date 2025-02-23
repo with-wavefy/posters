@@ -2,5 +2,5 @@
 /** @type {import('postcss-load-config').Config} */
 
 module.exports = {
-	plugins: [require('autoprefixer')]
+	plugins: [require('postcss-mixins'), require('autoprefixer')]
 };

@@ -1,7 +1,8 @@
 <script>
-	import { ToggleNoiseButton } from '@features/toggleNoise';
 	import { ExpandableBlock } from '@shared/ui/ExpandableBlock';
+	import { Range } from '@shared/ui/Range';
 	import ExpandableIcon from '~icons/mdi/paint-outline';
+	let value = 0;
 </script>
 
 {#snippet icon()}
@@ -10,12 +11,12 @@
 
 <ul>
 	<li>
-		<ToggleNoiseButton />
-	</li>
-	<li>
-		<ExpandableBlock {icon}>
-			<h2>test</h2>
-			<h4>test</h4>
+		<ExpandableBlock expanded {icon}>
+			<div class="content">
+				<h2>test</h2>
+				<h4>test</h4>
+				<Range min={0} max={10} step={1} bind:value />
+			</div>
 		</ExpandableBlock>
 	</li>
 </ul>
@@ -25,8 +26,8 @@
 		display: flex;
 		align-items: center;
 		gap: 10px;
-		position: fixed;
-		top: 20px;
-		right: 20px;
+	}
+	.content {
+		width: 400px;
 	}
 </style>

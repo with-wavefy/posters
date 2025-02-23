@@ -4,7 +4,7 @@
 	import type { IExpandableBlockProps } from './types';
 	import CloseIcon from '~icons/mdi/window-close';
 	import OpenIcon from '~icons/mdi/arrow-expand-all';
-	import { fade } from 'svelte/transition';
+	import { scale } from 'svelte/transition';
 
 	let { expanded = $bindable(false), className, children, icon }: IExpandableBlockProps = $props();
 	let contentWidth = $state(0);
@@ -22,23 +22,19 @@
 	<div class="button-wrapper">
 		<Button type="text" onclick={toggle} square>
 			<div class="button-icons">
-				{#key expanded}
-					<div class="button-icon" transition:fade={{ duration: 0.3 }}>
-						{#if expanded}
-							<div class="button-icon">
-								<CloseIcon />
-							</div>
-						{:else if icon}
-							<div class="button-icon" style:color="#fff">
-								{@render icon()}
-							</div>
-						{:else}
-							<div class="button-icon" style:color="#fff">
-								<OpenIcon />
-							</div>
-						{/if}
+				{#if expanded}
+					<div class="button-icon" transition:scale={{ duration: 150 }}>
+						<CloseIcon />
 					</div>
-				{/key}
+				{:else if icon}
+					<div class="button-icon" style:color="#fff" transition:scale={{ duration: 150 }}>
+						{@render icon()}
+					</div>
+				{:else}
+					<div class="button-icon" style:color="#fff" transition:scale={{ duration: 150 }}>
+						<OpenIcon />
+					</div>
+				{/if}
 			</div>
 		</Button>
 	</div>

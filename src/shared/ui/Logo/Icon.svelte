@@ -9,6 +9,7 @@
 
 <script lang="ts">
 	import type { IIconProps } from './types';
+	import getPercentage from '../../lib/getPercentage';
 
 	const { colors = [defaultColor], width = '408px', className }: IIconProps = $props();
 </script>
@@ -48,7 +49,7 @@
 				gradientUnits="userSpaceOnUse"
 			>
 				{#each colors as color, index (color)}
-					<stop stop-color={color} offset={index} />
+					<stop stop-color={color} offset="{getPercentage(index, colors.length - 1)}%" />
 				{/each}
 			</linearGradient>
 		{/each}
