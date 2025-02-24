@@ -40,9 +40,10 @@
 		opacity: var(--opacity);
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%, -50%) scale(var(--scale));
+		transform: translate3d(0, 0, 0) translate(-50%, -50%) scale(var(--scale));
 		filter: blur(70px) brightness(var(--brightness));
 		transition: 0.3s ease;
 		transition-property: transform, filter, opacity;
+		will-change: transform, filter;
 	}
 </style>

@@ -77,6 +77,9 @@
 		pointer-events: none;
 		mix-blend-mode: overlay;
 		z-index: 2;
+		background-blend-mode: normal;
+		will-change: transform;
+		transform: translate3d(0, 0, 0);
 	}
 	.container {
 		--clientWidth: 587px;
