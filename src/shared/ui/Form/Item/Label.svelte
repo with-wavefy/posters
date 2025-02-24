@@ -13,6 +13,5 @@
 	label {
 		font-weight: 500;
 		font-size: 14px;
-		transition: color 0.3s ease;
 	}
 </style>
