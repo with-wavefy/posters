@@ -14,7 +14,7 @@
 	<ExpandableIcon />
 {/snippet}
 
-<ExpandableBlock title="Paint me" expanded {icon}>
+<ExpandableBlock title="Paint me" {icon}>
 	<div>
 		<ChangePosterNoiseRange {posterStore} />
 		<ChangePosterGlowRange {posterStore} />
