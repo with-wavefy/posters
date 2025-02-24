@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { usePalette } from '@shared/modules/palette';
-	import { Range } from '@shared/ui/Range';
 	import { createThemeStore, ThemeProvider } from '@shared/modules/theme';
 	import isDarkColor from '@shared/lib/color/isDarkColor';
 	import { createPosterStore, Poster } from '@entities/poster';
@@ -10,17 +9,8 @@
 	const posterStore = createPosterStore({ palette: paletteStore });
 	const { backgroundColor } = posterStore;
 
-	let value = $state(1);
-
-	$effect(() => {
-		const date = new Date();
-		date.setDate(new Date().getDate() + value);
-		posterStore.updateByDate(date);
-	});
-
 	$effect(() => {
 		const primaryIsDark = isDarkColor($backgroundColor);
-		console.log(primaryIsDark);
 		if (primaryIsDark) {
 			themeStore.setLight();
 		} else {
@@ -31,10 +21,7 @@
 
 <ThemeProvider store={themeStore}>
 	<section>
-		<div class="test" style="z-index: 5; position: relative; width: 300px">
-			<Range min={0} max={365} step={1} tickInterval={Math.ceil(365 / 12)} bind:value />
-		</div>
-		<div class="poster">
+		<div class="poster-wrapper">
 			<Poster store={posterStore} />
 		</div>
 		<div class="controls"><Controls {posterStore} /></div>
@@ -49,7 +36,7 @@
 		display: flex;
 		align-items: center;
 	}
-	.poster {
+	.poster-wrapper {
 		position: absolute;
 		top: 0;
 		left: 0;

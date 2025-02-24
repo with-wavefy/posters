@@ -13,5 +13,6 @@ export type ThemeStore = ReturnType<typeof createStore>;
 
 export interface IThemeProviderProps {
 	children: Snippet;
+	initialValue?: ThemeStoreInitialValue;
 	store?: ThemeStore;
 }

@@ -11,11 +11,17 @@ export interface IPoster {
 	caption: string;
 }
 
+export type PosterStoreMono = number;
+
+export type PosterMonoDataType = 'gradient' | 'color' | 'default';
+export interface IPosterMonoData {
+	type: PosterMonoDataType;
+	background?: string;
+	color?: string;
+}
+
 export interface IPosterStoreInitialValue {
-	mono?: {
-		background: string;
-		color: string;
-	};
+	mono: PosterStoreMono;
 	glow: number;
 	noise: number;
 }

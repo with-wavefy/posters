@@ -9,5 +9,5 @@ export interface IIconProps extends BaseUiProps {
 
 export interface ILogoProps extends BaseUiProps {
 	iconProps?: IIconProps;
-	glow?: boolean;
+	glow?: number;
 }

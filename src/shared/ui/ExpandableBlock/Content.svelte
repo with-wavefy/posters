@@ -1,24 +1,30 @@
 <script lang="ts">
-	import { createThemeStore, ThemeProvider } from '@shared/modules/theme';
+	import { createThemeStore, getDifferentTheme, ThemeProvider } from '@shared/modules/theme';
 	import type { IExpandableBlockContentProps } from './types';
+	import Header from './Header.svelte';
 
 	let {
 		clientHeight = $bindable(0),
 		clientWidth = $bindable(0),
 		className,
-		children
+		children,
+		theme,
+		title
 	}: IExpandableBlockContentProps = $props();
 
-	const themeStore = createThemeStore({ value: 'dark' });
+	const themeStore = createThemeStore({ value: getDifferentTheme(theme) });
+
+	$effect(() => themeStore.setDifferent(theme));
 </script>
 
-<div class="content {className}" bind:clientHeight bind:clientWidth>
-	<ThemeProvider store={themeStore}>
+<ThemeProvider store={themeStore}>
+	<div class="content {className}" bind:clientHeight bind:clientWidth>
+		<Header {title} />
 		<div class="main">
 			{@render children()}
 		</div>
-	</ThemeProvider>
-</div>
+	</div>
+</ThemeProvider>
 
 <style lang="postcss">
 	.content {
@@ -28,14 +34,13 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
-		color: #141414;
-		padding-top: 45px;
 		padding-bottom: 20px;
 		:global(& > *) {
 			flex: none;
 		}
 	}
 	.main {
-		padding: 0 16px;
+		margin-top: 5px;
+		padding: 0 12px;
 	}
 </style>

@@ -2,6 +2,7 @@
 	import { useTheme } from '@shared/modules/theme';
 	import createTicks from './lib/createTicks';
 	import type { IRangeProps } from './types';
+	import { useFieldContext } from '../FieldContext/context';
 
 	let {
 		min = 0,
@@ -15,26 +16,25 @@
 	}: IRangeProps = $props();
 
 	const themeStore = useTheme();
+	const fieldContext = useFieldContext();
 
-	let input: HTMLInputElement;
-
-	const ticksArray = $derived(ticks ? createTicks(min, max, step, tickInterval) : []);
+	const ticksArray = $derived(createTicks(min, max, step, tickInterval));
 </script>
 
 <div
 	class="{className} range {theme || $themeStore.value}"
 	class:ticks
-	style:--value={value}
 	style:--ticksLength={ticksArray.length}
 >
-	<input type="range" {min} {max} {step} bind:value bind:this={input} />
+	<input type="range" {min} {max} {step} bind:value id={fieldContext?.id} />
 	{#each ticksArray as tick (tick)}
+		{@const roundedValue = Math.round(value)}
 		<span
 			role="button"
 			tabindex={0}
 			class="tick"
-			class:active={tick === value}
-			class:include={tick < value}
+			class:active={ticks && tick === roundedValue}
+			class:include={tick < roundedValue}
 		></span>
 	{/each}
 </div>
@@ -60,7 +60,6 @@
 	.range {
 		--primary: #fff;
 		--secondary: #fff;
-		--value: 0;
 		--space: 4px;
 		--height: 20px;
 		--thumbSize: calc(var(--height) - var(--space) * 2);

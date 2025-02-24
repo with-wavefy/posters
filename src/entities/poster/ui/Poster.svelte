@@ -3,7 +3,6 @@
 	import { Noise } from '@shared/ui/Noise';
 	import { onMount } from 'svelte';
 	import type { IPosterProps } from '../types';
-	import getPercentage from '@shared/lib/getPercentage';
 
 	let { store }: IPosterProps = $props();
 
@@ -25,7 +24,7 @@
 >
 	{#if $poster.noise}
 		<div class="noise">
-			<Noise amount={getPercentage($poster.noise, 100)} />
+			<Noise amount={$poster.noise} />
 		</div>
 	{/if}
 	<div
@@ -36,7 +35,7 @@
 		bind:clientHeight={containerProxyHeight}
 	>
 		<div class="main">
-			<Logo className="logo" glow={Boolean($poster.glow)} iconProps={{ colors: $logoColor }} />
+			<Logo className="logo" glow={$poster.glow} iconProps={{ colors: $logoColor }} />
 			<h1 class="title">Wavefy</h1>
 		</div>
 		<h3 class="caption">Coming Soon</h3>
@@ -56,6 +55,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		transition: 0.3s ease;
+		transition-property: background-color, color;
 		:global(&.loaded) {
 			.container {
 				opacity: 1;
@@ -75,7 +76,6 @@
 		height: 100%;
 		pointer-events: none;
 		mix-blend-mode: overlay;
-		opacity: 0.5;
 		z-index: 2;
 	}
 	.container {
@@ -112,14 +112,18 @@
 		width: 100%;
 		font-size: calc(var(--proxyWidth) * 0.1635);
 		font-family: 'Garamond';
+		font-weight: 600;
 		text-align: center;
 		margin-top: 17.26vh;
+		transition: 0.3s ease;
+		transition-property: color;
 	}
 	.caption {
 		grid-area: caption;
 		text-align: center;
 		margin-top: auto;
 		font-size: calc(var(--proxyWidth) * 0.0341);
+		font-family: 'Helvetica';
 		font-weight: 300;
 		position: relative;
 		z-index: 3;

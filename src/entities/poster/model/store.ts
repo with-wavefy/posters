@@ -5,13 +5,15 @@ import { POSTER_CONFIG } from '../config';
 import getHexColorByDate from '@shared/lib/color/getHexColorByDate';
 import createPaletteOptionsByDate from '../lib/createPaletteOptionsByDate';
 import createPosterDays from '../lib/createPosterDays';
+import getMonoData from '../lib/getMonoData';
 
 const createInitialValue = (date = new Date()): IPosterStoreInitialValue => {
 	const posterDays = createPosterDays(date);
 	return {
 		mono: (() => {
-			if (posterDays.isMonoBlack) return { background: '#141414', color: '#FDFDFD' };
-			if (posterDays.isMonoWhite) return { background: '#FDFDFD', color: '#141414' };
+			if (posterDays.isMonoBlack) return 2;
+			if (posterDays.isMonoWhite) return 1;
+			return 0;
 		})(),
 		glow: posterDays.isGlow ? POSTER_CONFIG.GLOW.DEFAULT : 0,
 		noise: posterDays.isNoise ? POSTER_CONFIG.NOISE.DEFAULT : 0
@@ -26,17 +28,41 @@ export const createPosterStore = ({
 }: IPosterStoreOptions) => {
 	const { subscribe, update, set } = writable(initialValue);
 	const palette = paletteStore;
+	const monoData = derived({ subscribe }, ($store) => getMonoData($store.mono));
 
-	const color = derived([{ subscribe }, palette], ([$store, $palette]) =>
-		$store.mono ? $store.mono.color : $palette.different
-	);
-	const backgroundColor = derived([{ subscribe }, palette], ([$store, $palette]) =>
-		$store.mono ? $store.mono.background : $palette.primary
-	);
-	const logoColor = derived(
-		[{ subscribe }, palette],
-		([$store, $palette]): LogoIconColor => ($store.mono ? $palette.analogous : [$palette.different])
-	);
+	const color = derived([monoData, palette], ([$monoData, $palette]) => {
+		switch ($monoData.type) {
+			case 'default': {
+				return $palette.different;
+			}
+			default: {
+				return $monoData.color;
+			}
+		}
+	});
+	const backgroundColor = derived([monoData, palette], ([$monoData, $palette]) => {
+		switch ($monoData.type) {
+			case 'gradient': {
+				return $monoData.background ?? $palette.primary;
+			}
+			default: {
+				return $palette.primary;
+			}
+		}
+	});
+	const logoColor = derived([monoData, palette], ([$monoData, $palette]): LogoIconColor => {
+		switch ($monoData.type) {
+			case 'gradient': {
+				return $palette.analogous;
+			}
+			case 'color': {
+				return [$monoData.color ?? $palette.different];
+			}
+			default: {
+				return [$palette.different];
+			}
+		}
+	});
 
 	const setPrimaryColorByDate = (date: Date) => {
 		const colorByDate = getHexColorByDate(date);
@@ -55,9 +81,9 @@ export const createPosterStore = ({
 		logoColor,
 		setPrimaryColorByDate,
 		updateByDate,
-		setPrimary: palette.setPrimary,
 		set,
 		update,
-		subscribe
+		subscribe,
+		palette
 	};
 };

@@ -1,14 +1,9 @@
-import hexToRgb from '../adapters/hexToRgb';
+import hexToHsl from '../adapters/hexToHsl';
 import hslToHex from '../adapters/hslToHex';
-import rgbToHsl from '../adapters/rgbToHsl';
 import type { ColorSchema } from './types';
 
 export default (hex: string, count = 2, spread = 30): ColorSchema<ReturnType<typeof hslToHex>> => {
-	const {
-		values: { r, g, b }
-	} = hexToRgb(hex);
-
-	const { h, s, l } = rgbToHsl(r, g, b);
+	const { h, s, l } = hexToHsl(hex);
 	const colors: number[] = [];
 
 	if (count % 2 === 0) count++;

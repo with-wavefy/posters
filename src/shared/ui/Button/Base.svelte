@@ -1,10 +1,12 @@
 <script lang="ts">
+	import { useTheme } from '@shared/modules/theme';
 	import type { IBaseButtonProps } from './types';
 	let { children, className, square, type, color, ...restProps }: IBaseButtonProps = $props();
+	const theme = useTheme();
 </script>
 
 <button
-	class="{className} {type}"
+	class="{className} {type} {$theme.value}"
 	class:square
 	style:--primary={color?.primary}
 	style:--secondary={color?.secondary}
@@ -19,6 +21,7 @@
 		--secondary: #141414;
 		--width: auto;
 		--height: 40px;
+		--borderWidth: 2px;
 		--color: var(--primary);
 		--backgroundColor: transparent;
 		--borderColor: var(--primary);
@@ -30,7 +33,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border: 1px solid var(--borderColor);
+		border: var(--borderWidth) solid var(--borderColor);
 		background: var(--backgroundColor);
 		border-radius: 10px;
 		font-size: 14px;
@@ -45,6 +48,10 @@
 			border-color: var(--borderColor_hover);
 			color: var(--color_hover);
 		}
+		&.dark {
+			--primary: #141414;
+			--secondary: #fff;
+		}
 		:global(&.primary) {
 			--color: var(--secondary);
 			--backgroundColor: var(--primary);
@@ -58,6 +65,9 @@
 			--color_hover: var(--secondary);
 			--borderColor_hover: transparent;
 			--backgroundColor_hover: rgba(10, 10, 10, 0.1);
+			&.dark {
+				--backgroundColor_hover: rgba(255, 255, 255, 0.1);
+			}
 		}
 		:global(&.square) {
 			width: var(--height);

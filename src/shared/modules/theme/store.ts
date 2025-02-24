@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import type { ThemeStore, ThemeStoreInitialValue, ThemeValue } from './types';
 import { getContext, setContext } from 'svelte';
+import getDifferentTheme from './lib/getDifferentTheme';
 
 const initialValue: ThemeStoreInitialValue = {
 	value: 'light'
@@ -23,10 +24,15 @@ export const createStore = (initial = initialValue) => {
 		setValue('light');
 	};
 
+	const setDifferent = (theme: ThemeValue) => {
+		setValue(getDifferentTheme(theme));
+	};
+
 	return {
 		subscribe,
 		setDark,
-		setLight
+		setLight,
+		setDifferent
 	};
 };
 

@@ -1,10 +1,11 @@
 <script lang="ts">
+	import { createThemeStore } from '.';
 	import { setStoreContext } from './store';
 	import type { IThemeProviderProps } from './types';
 
-	let { children, store }: IThemeProviderProps = $props();
+	let { children, store, initialValue }: IThemeProviderProps = $props();
 
-	setStoreContext(store);
+	setStoreContext(store ?? createThemeStore(initialValue));
 </script>
 
 {@render children()}
