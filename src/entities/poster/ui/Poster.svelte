@@ -7,8 +7,8 @@
 	let { store }: IPosterProps = $props();
 
 	let loaded = $state(false);
-	let containerProxyWidth = $state(587);
-	let containerProxyHeight = $state(782);
+	let containerClientWidth = $state(587);
+	let containerClientHeight = $state(782);
 
 	const { backgroundColor, color, logoColor, ...poster } = store;
 
@@ -29,10 +29,10 @@
 	{/if}
 	<div
 		class="container"
-		style:--clientWidth="{containerProxyWidth}px"
-		style:--clientHeight="{containerProxyHeight}px"
-		bind:clientWidth={containerProxyWidth}
-		bind:clientHeight={containerProxyHeight}
+		style:--clientWidth="{containerClientWidth}px"
+		style:--clientHeight="{containerClientHeight}px"
+		bind:clientWidth={containerClientWidth}
+		bind:clientHeight={containerClientHeight}
 	>
 		<div class="main">
 			<Logo className="logo" glow={$poster.glow} iconProps={{ colors: $logoColor }} />
@@ -79,7 +79,7 @@
 		z-index: 2;
 	}
 	.container {
-		--proxyWidth: 587px;
+		--clientWidth: 587px;
 		width: 587px;
 		max-width: 100%;
 		flex: 1;
@@ -110,7 +110,7 @@
 	.title {
 		color: var(--titleColor, #fff);
 		width: 100%;
-		font-size: calc(var(--proxyWidth) * 0.1635);
+		font-size: calc(var(--clientWidth) * 0.1635);
 		font-family: 'Garamond';
 		font-weight: 600;
 		text-align: center;
@@ -122,7 +122,7 @@
 		grid-area: caption;
 		text-align: center;
 		margin-top: auto;
-		font-size: calc(var(--proxyWidth) * 0.0341);
+		font-size: calc(var(--clientWidth) * 0.0341);
 		font-family: 'Helvetica';
 		font-weight: 300;
 		position: relative;

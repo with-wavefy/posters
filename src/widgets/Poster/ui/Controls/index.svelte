@@ -15,7 +15,7 @@
 {/snippet}
 
 <ExpandableBlock title="Paint me" expanded {icon}>
-	<div class="content">
+	<div>
 		<ChangePosterNoiseRange {posterStore} />
 		<ChangePosterGlowRange {posterStore} />
 		<ChangePosterPrimaryColorRange {posterStore} />
@@ -24,8 +24,9 @@
 </ExpandableBlock>
 
 <style lang="postcss">
-	.content {
+	div {
 		width: 300px;
+		max-width: calc(100vw - 100px);
 		display: flex;
 		flex-direction: column;
 		gap: 6px;

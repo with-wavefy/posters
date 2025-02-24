@@ -59,7 +59,6 @@
 	<Content
 		{title}
 		theme={$theme.value}
-		className="content"
 		bind:clientHeight={contentHeight}
 		bind:clientWidth={contentWidth}
 	>

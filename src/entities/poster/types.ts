@@ -1,16 +1,6 @@
 import type { PaletteStore } from '@shared/modules/palette/model/types';
 import type { createPosterStore } from './model/store';
 
-export interface IPosterTheme {
-	background: string;
-}
-
-export interface IPoster {
-	theme: IPosterTheme;
-	title: string;
-	caption: string;
-}
-
 export type PosterStoreMono = number;
 
 export type PosterMonoDataType = 'gradient' | 'color' | 'default';
