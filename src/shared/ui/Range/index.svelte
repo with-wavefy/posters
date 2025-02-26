@@ -73,7 +73,6 @@
 		align-items: center;
 		justify-content: space-between;
 		position: relative;
-		overflow: hidden;
 		height: var(--height);
 		border-radius: 6px;
 		cursor: pointer;
@@ -99,8 +98,8 @@
 		display: block;
 		left: calc(var(--space) / 2);
 		right: calc(var(--space) / 2);
-		top: -4px;
-		bottom: -4px;
+		top: -5px;
+		bottom: -5px;
 		cursor: pointer;
 		border: none;
 		background: none;
