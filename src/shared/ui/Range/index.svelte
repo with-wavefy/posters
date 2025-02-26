@@ -99,8 +99,8 @@
 		display: block;
 		left: calc(var(--space) / 2);
 		right: calc(var(--space) / 2);
-		top: 0;
-		height: 100%;
+		top: -4px;
+		bottom: -4px;
 		cursor: pointer;
 		border: none;
 		background: none;

@@ -75,9 +75,8 @@
 		width: 100%;
 		height: 100%;
 		pointer-events: none;
-		mix-blend-mode: overlay;
+		mix-blend-mode: soft-light;
 		z-index: 2;
-		background-blend-mode: normal;
 		will-change: transform;
 		transform: translate3d(0, 0, 0);
 	}

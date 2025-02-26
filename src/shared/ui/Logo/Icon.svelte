@@ -1,17 +1,9 @@
-<script module>
-	type GradientId = string;
-	const defaultColor = '#FFFFFF';
-	const ids: GradientId[] = ['1', '2', '3', '4'];
-	const gradientIdPrefix = 'logo-block';
-	const createGradientId = (id: GradientId) => `${gradientIdPrefix}_${id}`;
-	const createUrlToGradient = (id: GradientId) => `url(#${createGradientId(id)})`;
-</script>
-
 <script lang="ts">
 	import type { IIconProps } from './types';
 	import getPercentage from '../../lib/getPercentage';
-
-	const { colors = [defaultColor], width = '408px', className }: IIconProps = $props();
+	import { createGradientId, createUrlToGradient, type LogoGradientId } from './createGradientId';
+	const ids: LogoGradientId[] = ['1', '2', '3', '4'];
+	const { colors = ['#FFFFFF'], width = '408px', className }: IIconProps = $props();
 </script>
 
 <svg

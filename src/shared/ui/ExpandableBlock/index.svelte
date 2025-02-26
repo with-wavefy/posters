@@ -76,6 +76,8 @@
 		--borderColor: var(--primary);
 		--color: var(--secondary);
 		--expandedBackgroundColor: var(--primary);
+		touch-action: none;
+		overscroll-behavior: contain;
 		border: var(--blockBorderWidth) solid var(--borderColor);
 		padding: 10px;
 		border-radius: 10px;

@@ -45,5 +45,6 @@
 		transition: 0.3s ease;
 		transition-property: transform, filter, opacity;
 		will-change: transform, filter;
+		mix-blend-mode: normal;
 	}
 </style>
