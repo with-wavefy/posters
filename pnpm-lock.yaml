@@ -8,6 +8,9 @@ onlyBuiltDependencies:
   - esbuild
 
 dependencies:
+  '@use-gesture/vanilla':
+    specifier: ^10.3.1
+    version: 10.3.1
   unplugin-icons:
     specifier: ^22.1.0
     version: 22.1.0(svelte@5.20.2)
@@ -810,6 +813,16 @@ packages:
       '@typescript-eslint/types': 8.24.1
       eslint-visitor-keys: 4.2.0
     dev: true
+
+  /@use-gesture/core@10.3.1:
+    resolution: {integrity: sha512-WcINiDt8WjqBdUXye25anHiNxPc0VOrlT8F6LLkU6cycrOGUDyY/yyFmsg3k8i5OLvv25llc0QC45GhR/C8llw==}
+    dev: false
+
+  /@use-gesture/vanilla@10.3.1:
+    resolution: {integrity: sha512-lT4scGLu59ovA3zmtUonukAGcA0AdOOh+iwNDS05Bsu7Lq9aZToDHhI6D8Q2qvsVraovtsLLYwPrWdG/noMAKw==}
+    dependencies:
+      '@use-gesture/core': 10.3.1
+    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.14.0):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}

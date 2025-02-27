@@ -4,6 +4,8 @@
 	import isDarkColor from '@shared/lib/color/isDarkColor';
 	import { createPosterStore, Poster } from '@entities/poster';
 	import { Controls } from './Controls';
+	import { Gesture } from './Gesture';
+
 	const themeStore = createThemeStore();
 	const paletteStore = usePalette();
 	const posterStore = createPosterStore({ palette: paletteStore });
@@ -21,6 +23,7 @@
 
 <ThemeProvider store={themeStore}>
 	<section>
+		<Gesture className="gesture" {posterStore} />
 		<div class="poster-wrapper">
 			<Poster store={posterStore} />
 		</div>
@@ -36,6 +39,15 @@
 		display: flex;
 		align-items: center;
 		overflow: hidden;
+		position: relative;
+		:global(.gesture) {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 5;
+		}
 	}
 	.poster-wrapper {
 		position: absolute;
@@ -48,6 +60,6 @@
 		position: fixed;
 		top: 20px;
 		right: 20px;
-		z-index: 4;
+		z-index: 6;
 	}
 </style>

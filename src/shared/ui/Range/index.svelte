@@ -33,8 +33,8 @@
 			role="button"
 			tabindex={0}
 			class="tick"
-			class:active={ticks && tick === roundedValue}
-			class:include={tick < roundedValue}
+			class:active={ticks && tick <= roundedValue + step / 2 && tick >= roundedValue - step / 2}
+			class:include={tick < roundedValue - step / 2}
 		></span>
 	{/each}
 </div>
