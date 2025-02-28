@@ -40,6 +40,7 @@
 		align-items: center;
 		overflow: hidden;
 		position: relative;
+		transform: translate3d(0, 0, 0);
 		:global(.gesture) {
 			position: absolute;
 			top: 0;
